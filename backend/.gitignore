@@ -3,3 +3,6 @@
 
 # image
 /uploads
+
+# misc
+.env
