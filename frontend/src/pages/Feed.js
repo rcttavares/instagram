@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import api from '../services/api';
+import api, { API_URL } from '../services/api';
 import io from 'socket.io-client';
 
 import './Feed.css';
@@ -23,7 +23,7 @@ class Feed extends Component {
     }
 
     registerToSocket = () => {
-        const socket = io('http://localhost:80');
+        const socket = io(API_URL);
 
         socket.on('post', newPost => {
             this.setState({ feed: [newPost, ...this.state.feed] });
@@ -56,7 +56,7 @@ class Feed extends Component {
                             <img src={more} alt="Mais" />
                         </header>
 
-                        <img src={`http://localhost/files/${post.image}`} alt="" />
+                        <img src={`${API_URL}/files/${post.image}`} alt="" />
 
                         <footer>
                             <div className="actions">
