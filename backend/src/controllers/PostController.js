@@ -16,8 +16,11 @@ module.exports = {
 
         const [name] = image.split('.');
         const fileName = `${name}.jpg`;
+        const resizedDir = path.resolve(req.file.destination, 'resized');
 
-        await sharp(req.file.path).resize(500).jpeg({ quality: 70 }).toFile(path.resolve(req.file.destination, 'resized', fileName));
+        fs.mkdirSync(resizedDir, { recursive: true });
+
+        await sharp(req.file.path).resize(500).jpeg({ quality: 70 }).toFile(path.resolve(resizedDir, fileName));
 
         fs.unlinkSync(req.file.path);
 

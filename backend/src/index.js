@@ -16,10 +16,6 @@ if (!process.env.MONGO_URL) {
 
 mongoose.set('strictQuery', true);
 
-mongoose.connect(process.env.MONGO_URL, {
-  useNewUrlParser: true,
-});
-
 app.use((req, _res, next) => {
   req.io = io;
 
@@ -35,4 +31,22 @@ app.use(
 
 app.use(require('./routes'));
 
-server.listen(process.env.PORT || 80);
+const port = Number(process.env.PORT) || 3333;
+
+async function startServer() {
+  try {
+    await mongoose.connect(process.env.MONGO_URL, {
+      useNewUrlParser: true,
+      serverSelectionTimeoutMS: 10000,
+    });
+
+    server.listen(port);
+    console.log(`Backend running on http://localhost:${port}`);
+  } catch (error) {
+    console.error('MongoDB connection failed. Check MONGO_URL, Atlas user, and Network Access IP allowlist.');
+    console.error(error.message);
+    process.exit(1);
+  }
+}
+
+startServer();
