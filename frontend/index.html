@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#000000" />
+  <link rel="apple-touch-icon" href="/logo192.png" />
+  <link rel="manifest" href="/manifest.json" />
+  <title>Instagram</title>
+</head>
+
+<body>
+  <div id="root"></div>
+  <script type="module" src="/src/index.jsx"></script>
+</body>
+
+</html>
+<!-- Temporary runtime error overlay to help debugging -->
+<script>
+  (function () {
+    function showError(message) {
+      var el = document.getElementById('__runtime_error_overlay');
+      if (!el) {
+        el = document.createElement('div');
+        el.id = '__runtime_error_overlay';
+        el.style.position = 'fixed';
+        el.style.left = 0;
+        el.style.right = 0;
+        el.style.top = 0;
+        el.style.background = 'rgba(200,20,20,0.95)';
+        el.style.color = 'white';
+        el.style.padding = '12px';
+        el.style.zIndex = 999999;
+        el.style.fontFamily = 'monospace';
+        el.style.whiteSpace = 'pre-wrap';
+        document.body.appendChild(el);
+      }
+      el.textContent = message;
+    }
+
+    window.addEventListener('error', function (e) {
+      showError('Runtime error: ' + (e && e.message ? e.message : String(e)));
+    });
+
+    window.addEventListener('unhandledrejection', function (e) {
+      showError('Unhandled promise rejection: ' + (e && e.reason ? (e.reason.message || String(e.reason)) : String(e)));
+    });
+  })();
+</script>
