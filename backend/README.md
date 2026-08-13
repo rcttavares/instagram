@@ -25,9 +25,19 @@ npm run dev
 The backend expects a `.env` file in `backend/` with the variables below:
 
 ```env
-MONGO_URL=mongodb+srv://<username>:<password>@<cluster-url>/<dbname>?retryWrites=true&w=majority
+MONGO_URL=mongodb://localhost:27017/instagram
 PORT=3333
 ```
+
+### MongoDB
+
+For local development, run MongoDB via Docker instead of depending on an Atlas cluster (Atlas free-tier clusters auto-pause after 30 days of inactivity):
+
+```bash
+docker compose up -d
+```
+
+This starts a `mongo:7` container on `localhost:27017` with data persisted in a named volume. To use Atlas instead, set `MONGO_URL` to your Atlas connection string (see `.env.example`).
 
 ## Main routes
 
