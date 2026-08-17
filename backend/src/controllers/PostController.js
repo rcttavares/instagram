@@ -42,5 +42,17 @@ module.exports = {
         req.io.emit('post', post);
 
         return res.json(post);
+    },
+
+    async destroy(req, res) {
+        const post = await Post.findByIdAndDelete(req.params.id);
+
+        if (!post) {
+            return res.status(404).json({ error: 'Post not found' });
+        }
+
+        req.io.emit('post:deleted', post._id);
+
+        return res.status(204).send();
     }
 };
