@@ -118,7 +118,7 @@ section#post-list article .edit-actions button:last-child {
 .post-options-modal {
     width: 90%;
     max-width: 400px;
-    background: #262626;
+    background: #fff;
     border-radius: 12px;
     overflow: hidden;
 }
@@ -129,8 +129,8 @@ section#post-list article .edit-actions button:last-child {
     padding: 14px;
     background: transparent;
     border: 0;
-    border-top: 1px solid #363636;
-    color: #fff;
+    border-top: 1px solid #dbdbdb;
+    color: #262626;
     font-size: 14px;
     font-weight: 600;
     cursor: pointer;
