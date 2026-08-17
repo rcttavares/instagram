@@ -28,20 +28,18 @@ app.use(require('./routes'));
 
 const port = Number(process.env.PORT) || 3333;
 
-async function startServer() {
-  try {
-    await mongoose.connect(process.env.MONGO_URL, {
-      useNewUrlParser: true,
-      serverSelectionTimeoutMS: 10000,
-    });
+server.listen(port, () => {
+  console.log(`Backend running on http://localhost:${port}`);
+});
 
-    server.listen(port);
-    console.log(`Backend running on http://localhost:${port}`);
-  } catch (error) {
+mongoose
+  .connect(process.env.MONGO_URL, {
+    useNewUrlParser: true,
+    serverSelectionTimeoutMS: 10000,
+  })
+  .then(() => console.log('MongoDB connected'))
+  .catch((error) => {
     console.error('MongoDB connection failed. Check MONGO_URL, Atlas user, and Network Access IP allowlist.');
     console.error(error.message);
     process.exit(1);
-  }
-}
-
-startServer();
+  });
