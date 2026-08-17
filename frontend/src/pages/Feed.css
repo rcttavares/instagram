@@ -33,6 +33,13 @@ section#post-list article header .user-info span.place {
     margin-top: 3px;
 }
 
+section#post-list article header button {
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    padding: 0;
+}
+
 section#post-list article > img {
     width: 100%;
 }
@@ -65,4 +72,74 @@ section#post-list article footer p {
 section#post-list article footer p span {
     color: #7159c1;
     display: block;
+}
+
+section#post-list article .edit-post input {
+    display: block;
+    width: 100%;
+    margin-top: 8px;
+    padding: 6px 8px;
+    font-size: 13px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+section#post-list article .edit-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+section#post-list article .edit-actions button {
+    border: 0;
+    border-radius: 4px;
+    padding: 6px 14px;
+    font-size: 13px;
+    cursor: pointer;
+    background: #7159c1;
+    color: #fff;
+}
+
+section#post-list article .edit-actions button:last-child {
+    background: #efefef;
+    color: #262626;
+}
+
+.post-options-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.65);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+}
+
+.post-options-modal {
+    width: 90%;
+    max-width: 400px;
+    background: #262626;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.post-options-modal button {
+    display: block;
+    width: 100%;
+    padding: 14px;
+    background: transparent;
+    border: 0;
+    border-top: 1px solid #363636;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.post-options-modal button:first-child {
+    border-top: 0;
+}
+
+.post-options-modal button.danger {
+    color: #ed4956;
 }

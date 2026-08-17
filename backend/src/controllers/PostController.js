@@ -44,6 +44,24 @@ module.exports = {
         return res.json(post);
     },
 
+    async update(req, res) {
+        const { description, hashtags } = req.body;
+
+        const post = await Post.findByIdAndUpdate(
+            req.params.id,
+            { description, hashtags },
+            { new: true }
+        );
+
+        if (!post) {
+            return res.status(404).json({ error: 'Post not found' });
+        }
+
+        req.io.emit('post:updated', post);
+
+        return res.json(post);
+    },
+
     async destroy(req, res) {
         const post = await Post.findByIdAndDelete(req.params.id);
 
