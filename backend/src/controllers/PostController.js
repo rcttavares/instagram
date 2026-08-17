@@ -1,7 +1,21 @@
 const Post = require('../models/Post');
 const sharp = require('sharp');
-const path = require('path');
-const fs = require('fs');
+const { Readable } = require('stream');
+const cloudinary = require('../config/cloudinary');
+
+function uploadToCloudinary(buffer) {
+    return new Promise((resolve, reject) => {
+        const uploadStream = cloudinary.uploader.upload_stream(
+            { folder: 'instagram-posts', format: 'jpg' },
+            (error, result) => {
+                if (error) return reject(error);
+                resolve(result);
+            }
+        );
+
+        Readable.from(buffer).pipe(uploadStream);
+    });
+}
 
 module.exports = {
     async index(req, res) {
@@ -12,24 +26,17 @@ module.exports = {
 
     async store(req, res) {
         const {author, place, description, hashtags} = req.body;
-        const {filename: image} = req.file;
 
-        const [name] = image.split('.');
-        const fileName = `${name}.jpg`;
-        const resizedDir = path.resolve(req.file.destination, 'resized');
+        const resizedBuffer = await sharp(req.file.buffer).resize(500).jpeg({ quality: 70 }).toBuffer();
 
-        fs.mkdirSync(resizedDir, { recursive: true });
-
-        await sharp(req.file.path).resize(500).jpeg({ quality: 70 }).toFile(path.resolve(resizedDir, fileName));
-
-        fs.unlinkSync(req.file.path);
+        const uploadResult = await uploadToCloudinary(resizedBuffer);
 
         const post = await Post.create({
             author,
             place,
             description,
             hashtags,
-            image: fileName
+            image: uploadResult.secure_url
         });
 
         req.io.emit('post', post);

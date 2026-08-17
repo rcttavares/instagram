@@ -56,7 +56,14 @@ class Feed extends Component {
               <img src={more} alt='Mais' />
             </header>
 
-            <img src={`${API_URL}/files/${post.image}`} alt='' />
+            <img
+              src={
+                post.image.startsWith('http')
+                  ? post.image
+                  : `${API_URL}/files/${post.image}`
+              }
+              alt=''
+            />
 
             <footer>
               <div className='actions'>
