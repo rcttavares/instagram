@@ -7,7 +7,9 @@ const cors = require('cors');
 const app = express();
 
 const server = require('http').Server(app);
-const io = require('socket.io')(server);
+const io = require('socket.io')(server, {
+  cors: { origin: '*' },
+});
 
 if (!process.env.MONGO_URL) {
   throw new Error('Missing MONGO_URL. Set it in backend/.env');
